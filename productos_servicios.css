@@ -1,0 +1,161 @@
+/* Reset general y diseño base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Imagen de fondo en el body */
+body {
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-image: url('imagen/fondo.jpg'); /* Imagen de fondo */
+    background-size: cover; /* Ajustar la imagen al tamaño de la pantalla */
+    background-position: center; /* Centrar la imagen */
+    background-attachment: fixed; /* Fondo fijo */
+    min-height: 100vh; /* Cubrir toda la pantalla */
+}
+
+/* Contenedor del formulario */
+.formulario {
+    text-align: center;
+    margin-top: 30px;
+    max-width: 1200px;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.8); /* Blanco semitransparente */
+    padding: 20px;
+    border-radius: 10px;
+}
+
+/* Título principal */
+h2 {
+    color: hsl(303, 45%, 37%);
+    margin-top: 40px;
+    font-size: 28px;
+    font-family: 'Playfair Display', serif;
+}
+
+/* Botones principales */
+.botones-container {
+    margin-top: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+}
+
+.botons {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 12px 25px;
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 30px;
+    font-size: 16px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.botons:hover {
+    background-color: #0056b3;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Contenedores de productos y servicios */
+.productos-container,
+.servicios-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 20px;
+    width: 100%;
+    max-width: 1200px;
+    display: none; /* Inicialmente ocultos */
+}
+
+/* Tarjetas de producto y servicio */
+.producto-card,
+.servicio-card {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 15px;
+    width: 250px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.producto-card:hover,
+.servicio-card:hover {
+    transform: translateY(-10px);
+}
+
+/* Imágenes en productos y servicios */
+.producto-card img,
+.servicio-card img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+/* Botón de retroceso */
+.retroceder-btn {
+    font-size: 24px;
+    background-color: transparent;
+    border: none;
+    color: #007bff;
+    cursor: pointer;
+    padding: 10px;
+    transition: color 0.3s ease;
+}
+
+.retroceder-btn:hover {
+    color: #0056b3;
+}
+
+/* Botón salir fijo */
+.boton-salir {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    z-index: 999;
+    box-shadow: 0px 4px 6px rgba(0,0,0,0.3);
+    transition: background-color 0.3s ease;
+}
+
+.boton-salir:hover {
+    background-color: #e60000;
+}
+
+/* Responsivo para pantallas pequeñas */
+@media (max-width: 768px) {
+    .botons {
+        width: 100%;
+    }
+
+    .productos-container,
+    .servicios-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .producto-card,
+    .servicio-card {
+        width: 90%;
+        margin: 15px 0;
+    }
+}
