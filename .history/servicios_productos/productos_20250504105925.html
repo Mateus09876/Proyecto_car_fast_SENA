@@ -1,0 +1,84 @@
+<?php
+// Conexión a la base de datos
+$conexion = new mysqli("localhost", "root", "", "car_fast", 3307);
+if ($conexion->connect_error) {
+    die("Conexión fallida: " . $conexion->connect_error);
+}
+
+// Obtener productos por categoría si se pasa por GET
+$categoriaSeleccionada = isset($_GET['categoria']) ? $_GET['categoria'] : '';
+$sql = $categoriaSeleccionada
+    ? "SELECT * FROM productos WHERE categoria = '" . $conexion->real_escape_string($categoriaSeleccionada) . "'"
+    : "SELECT * FROM productos";
+$resultado = $conexion->query($sql);
+?>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Car Fast - Productos</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Tu CSS embebido aquí (el que ya tienes de antes) */
+        body { font-family: Arial; background: #f2f2f2; padding: 20px; }
+        .categoria-btn { margin: 5px; padding: 10px 20px; background: #007bff; color: white; border: none; cursor: pointer; border-radius: 8px; }
+        .producto-card { background: white; border-radius: 10px; padding: 15px; margin: 15px; display: inline-block; width: 250px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        .producto-card img { width: 100%; height: auto; border-radius: 8px; }
+        .botons { background: green; color: white; border: none; padding: 10px; margin-top: 10px; border-radius: 8px; cursor: pointer; }
+        .botons:hover { background: darkgreen; }
+    </style>
+</head>
+<body>
+
+<h2>Categorías</h2>
+<div>
+    <?php
+    $categorias = ["Radios y sistemas Multimedia", "Luces e iluminación", "Audio", "Alarmas y seguridad", "Pitos", "Seguros puertas", "Electricidad y componentes", "Accesorios", "Servicios"];
+    foreach ($categorias as $categoria) {
+        echo "<form method='get' style='display:inline;'>
+                <input type='hidden' name='categoria' value='" . htmlspecialchars($categoria) . "'>
+                <button class='categoria-btn'>" . htmlspecialchars($categoria) . "</button>
+              </form>";
+    }
+    ?>
+</div>
+
+<h2>Productos</h2>
+<div>
+    <?php while ($row = $resultado->fetch_assoc()): ?>
+    <div class="producto-card">
+        <img src="imagen/<?php echo htmlspecialchars($row['imagen']); ?>" alt="Producto">
+        <p><strong>ID:</strong> <?php echo $row['id']; ?></p>
+        <p><strong>Nombre:</strong> <?php echo htmlspecialchars($row['nombre']); ?></p>
+        <p><strong>Precio:</strong> $<?php echo number_format($row['precio'], 2); ?></p>
+        <p><strong>Fecha:</strong> <?php echo date("d/m/Y"); ?></p>
+        <p><strong>Hora:</strong> <?php echo date("h:i A"); ?></p>
+        <form onsubmit="return enviarWhatsApp(this);">
+            <input type="hidden" name="producto" value="<?php echo htmlspecialchars($row['nombre']); ?>">
+            <label>Fecha de cita:</label><br>
+            <input type="date" name="fecha" required><br>
+            <label>Hora:</label><br>
+            <input type="time" name="hora" required><br><br>
+            <button class="botons" type="submit">Agendar por WhatsApp</button>
+        </form>
+    </div>
+    <?php endwhile; ?>
+</div>
+
+<script>
+function enviarWhatsApp(form) {
+    var producto = form.producto.value;
+    var fecha = form.fecha.value;
+    var hora = form.hora.value;
+    var telefono = "573001112233"; // Número destino en formato internacional
+
+    var mensaje = `Hola, quiero agendar una cita para el producto: ${producto}%0AFecha: ${fecha}%0AHora: ${hora}`;
+    var url = `https://wa.me/${telefono}?text=${mensaje}`;
+    window.open(url, "_blank");
+    return false; // evita que se envíe el formulario
+}
+</script>
+
+</body>
+</html>
+

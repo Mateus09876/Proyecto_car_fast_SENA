@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="logo.jpg">
+    <link rel="stylesheet" href="estilos.css">
+    <link rel="stylesheet" href="style.css">
+    <title>Car Fast - Tienda Virtual</title>
+</head>
+
+<body>
+
+    <div class="formulario">
+        <img src="imagen/logo.jpg" width="330" height="224" alt="logotipo">
+        <br><br>
+
+        <form id="form-login" class="form-register" onsubmit="iniciarSesion(event)">
+            <h4>Bienvenido a Car Fast</h4>
+
+            <!-- Campo de correo -->
+            <input class="controls" type="email" name="correo" id="correo" placeholder="Ingrese su Correo" required>
+
+            <!-- Campo de contraseña -->
+            <input class="controls" type="password" name="password" id="password" placeholder="Ingrese su Contraseña" required>
+
+            <!-- Botón de inicio de sesión -->
+            <button class="botons" type="submit">Iniciar sesión</button>
+
+            <!-- Enlace a la página de registro -->
+            <a class="btn" href="car_fast/_registro_cliente/registro">Registrarse</a>
+
+            <!-- Enlace para ingresar como administrador -->
+            <p><a href="#">Ingresar como administrador</a></p>
+        </form>
+    </div>
+
+    <script>
+        function iniciarSesion(event) {
+            event.preventDefault(); // Evita que se recargue la página
+
+            const correo = document.getElementById('correo').value.trim();
+            const password = document.getElementById('password').value.trim();
+
+            if (correo === "" || password === "") {
+                alert("Por favor, complete ambos campos.");
+                return;
+            }
+
+            const datos = { correo, password };
+
+            fetch('http://localhost:8080/car_fast/login.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(datos)
+            })
+            .then(response => response.text())
+            .then(data => {
+                console.log('Respuesta del servidor:', data);
+                if (data.trim() === "success") {
+                    alert("¡Inicio de sesión exitoso!");
+                    window.location.href = "productos.html"; // Redirige si el login es exitoso
+                } else {
+                    alert(data); // Muestra el error recibido
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert("Error al iniciar sesión. Intente de nuevo más tarde.");
+            });
+        }
+    </script>
+
+</body>
+
+</html>

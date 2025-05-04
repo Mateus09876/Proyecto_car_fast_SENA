@@ -1,0 +1,43 @@
+<?php include 'conexion.php'; ?>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Car Fast - Productos y Servicios</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+    <h1>Car Fast - Productos y Servicios</h1>
+    <div class="categorias">
+        <?php
+        $categorias = ["Radios y sistemas Multimedia", "Luces e iluminación", "Audio", "Alarmas y seguridad", "Pitos", "Seguros puertas", "Electricidad y componentes", "Accesorios", "Servicios"];
+        foreach ($categorias as $cat) {
+            echo "<button class='categoria-btn' onclick=\"mostrarSubcategorias('$cat')\">$cat</button>";
+        }
+        ?>
+    </div>
+
+    <div id="subcategorias"></div>
+    <div id="productos"></div>
+
+    <script>
+    function mostrarSubcategorias(categoria) {
+        fetch('obtener_subcategorias.php?categoria=' + encodeURIComponent(categoria))
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById("subcategorias").innerHTML = html;
+                document.getElementById("productos").innerHTML = "";
+            });
+    }
+
+    function mostrarProductos(subcategoria) {
+        fetch('obtener_productos.php?subcategoria=' + encodeURIComponent(subcategoria))
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById("productos").innerHTML = html;
+            });
+    }
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Catálogo Car Fast</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    .categoria {
+      margin-top: 30px;
+    }
+    .producto {
+      margin-bottom: 10px;
+    }
+    #detalles {
+      margin-top: 20px;
+      padding: 15px;
+      border: 1px solid #ccc;
+      max-width: 500px;
+      background-color: #f9f9f9;
+    }
+    input, button {
+      margin: 5px 0;
+      padding: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Catálogo Car Fast</h1>
+
+  <!-- CATEGORÍA: RADIOS Y SISTEMAS MULTIMEDIA -->
+  <div class="categoria">
+    <h2>RADIOS Y SISTEMAS MULTIMEDIA</h2>
+    <div class="producto">
+      <button onclick="mostrarProducto(101, 'RADIO ANDROID', 450000, 'Radio Android táctil con Bluetooth, GPS y cámara de reversa.')">
+        Ver RADIO ANDROID
+      </button>
+    </div>
+    <div class="producto">
+      <button onclick="mostrarProducto(102, 'RADIO ESTÁNDAR', 250000, 'Radio sencilla con conexión auxiliar y USB.')">
+        Ver RADIO ESTÁNDAR
+      </button>
+    </div>
+  </div>
+
+  <!-- CATEGORÍA: LUCES E ILUMINACIÓN -->
+  <div class="categoria">
+    <h2>LUCES E ILUMINACIÓN</h2>
+    <div class="producto">
+      <button onclick="mostrarProducto(201, 'LUZ LED EXPLORADORA', 150000, 'Exploradoras LED resistentes al agua, ideal para carretera.')">
+        Ver LUZ LED EXPLORADORA
+      </button>
+    </div>
+    <div class="producto">
+      <button onclick="mostrarProducto(202, 'LUCES NEÓN', 120000, 'Luces de neón para estilo deportivo y nocturno.')">
+        Ver LUCES NEÓN
+      </button>
+    </div>
+  </div>
+
+  <!-- CONTENEDOR PARA DETALLES -->
+  <div id="detalles" style="display:none;">
+    <h3>Detalles del producto</h3>
+    <p><strong>ID:</strong> <span id="productoId"></span></p>
+    <p><strong>Nombre:</strong> <span id="productoNombre"></span></p>
+    <p><strong>Precio:</strong> $<span id="productoPrecio"></span></p>
+    <p><strong>Descripción:</strong> <span id="productoDescripcion"></span></p>
+
+    <label for="fecha">Fecha de cita:</label><br>
+    <input type="date" id="fecha"><br>
+
+    <label for="hora">Hora de cita:</label><br>
+    <input type="time" id="hora"><br>
+
+    <button onclick="enviarWhatsApp()">Agendar por WhatsApp</button>
+  </div>
+
+  <script>
+    let productoActual = {};
+
+    function mostrarProducto(id, nombre, precio, descripcion) {
+      productoActual = { id, nombre, precio, descripcion };
+      document.getElementById("productoId").innerText = id;
+      document.getElementById("productoNombre").innerText = nombre;
+      document.getElementById("productoPrecio").innerText = precio;
+      document.getElementById("productoDescripcion").innerText = descripcion;
+      document.getElementById("detalles").style.display = "block";
+    }
+
+    function enviarWhatsApp() {
+      const fecha = document.getElementById("fecha").value;
+      const hora = document.getElementById("hora").value;
+
+      if (!fecha || !hora) {
+        alert("Por favor selecciona fecha y hora.");
+        return;
+      }
+
+      const mensaje = `Hola, quiero agendar una compra:\n\n` +
+                      `📦 Producto: ${productoActual.nombre}\n` +
+                      `🆔 ID: ${productoActual.id}\n` +
+                      `💰 Precio: $${productoActual.precio}\n` +
+                      `📄 Descripción: ${productoActual.descripcion}\n` +
+                      `📅 Fecha: ${fecha}\n` +
+                      `⏰ Hora: ${hora}`;
+
+      const url = "https://wa.me/57TU_NUMERO?text=" + encodeURIComponent(mensaje);
+      window.open(url, '_blank');
+    }
+  </script>
+
+</body>
+</html>

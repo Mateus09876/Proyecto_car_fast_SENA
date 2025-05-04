@@ -1,0 +1,28 @@
+<?php
+// Conexión a la base de datos
+$pdo = new PDO("mysql:host=localhost;port=3307;dbname=car_fast", "root", "");
+
+// Verificar si la conexión se realiza correctamente
+if (!$pdo) {
+    echo "Error de conexión a la base de datos.";
+    exit();
+}
+
+$stmt = $pdo->query("SELECT * FROM productos");
+
+// Mostrar los productos
+while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+    echo "<tr>
+            <td>{$row['nombre']}</td>
+            <td>{$row['descripcion']}</td>
+            <td>{$row['precio']}</td>
+            <td>{$row['categoria']}</td>
+            <td>
+                <a href='editar_producto.php?id={$row['id_producto']}'>Editar</a> | 
+                <a href='eliminar_producto.php?id={$row['id_producto']}'>Eliminar</a>
+            </td>
+          </tr>";
+}
+?>
+
+

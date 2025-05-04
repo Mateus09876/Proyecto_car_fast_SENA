@@ -1,0 +1,99 @@
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Estilos generales */
+body {
+  font-family: 'Calibri', sans-serif;
+  background-color: #f4f4f4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding: 0 15px;
+}
+
+/* Contenedor del formulario */
+.formulario {
+  width: 100%;
+  max-width: 500px;
+  background: #24303c;
+  padding: 30px;
+  border-radius: 8px;
+  color: white;
+  box-shadow: 7px 13px 37px rgba(0, 0, 0, 0.3);
+  text-align: center;
+}
+
+/* Imagen superior */
+.formulario img {
+  width: 330px;
+  height: 224px;
+  margin-bottom: 20px;
+}
+
+/* Título del formulario */
+.formulario h2 {
+  font-size: 22px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Campos de entrada */
+.formulario input[type="email"],
+.formulario input[type="password"] {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 16px;
+  border-radius: 4px;
+  border: 1px solid #1f53c5;
+  background: #24303c;
+  color: white;
+  font-size: 18px;
+}
+
+/* Estilo de los botones */
+.formulario button {
+  width: 100%;
+  background: #1f53c5;
+  border: none;
+  padding: 12px;
+  color: white;
+  margin-top: 16px;
+  font-size: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.formulario button:hover {
+  background: #1a48b1;
+}
+
+/* Enlace de redirección */
+.formulario p {
+  margin-top: 15px;
+  font-size: 16px;
+  color: white;
+}
+
+.formulario a {
+  color: #1f53c5;
+  text-decoration: none;
+}
+
+.formulario a:hover {
+  color: #3b6ef5;
+  text-decoration: underline;
+}
+
+/* Mensaje de error */
+#mensaje {
+  margin-top: 15px;
+  font-size: 16px;
+  color: #ff5050;
+}
+

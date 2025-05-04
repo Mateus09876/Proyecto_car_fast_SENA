@@ -1,0 +1,101 @@
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Estilos generales */
+body {
+  min-height: 100vh;
+  font-family: 'Calibri', sans-serif;
+  background-color: #fbf8f8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+/* Contenedor principal del formulario */
+.formulario {
+  width: 400px;
+  background: #24303c;
+  padding: 30px;
+  border-radius: 8px;
+  color: white;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+  text-align: center;
+}
+
+/* Imagen superior */
+.formulario img {
+  margin-bottom: 30px;
+  border-radius: 10px;
+}
+
+/* Título */
+.formulario h2 {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.formulario h4 {
+  font-size: 16px;
+  font-weight: normal;
+  color: #d1d1d1;
+  margin-bottom: 20px;
+}
+
+/* Campos de entrada */
+.formulario input[type="email"],
+.formulario input[type="password"] {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: 1px solid #1f53c5;
+  border-radius: 4px;
+  background-color: #1a1a1a;
+  color: white;
+  font-size: 16px;
+}
+
+/* Botón */
+.formulario button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  background-color: #1f53c5;
+  border: none;
+  color: white;
+  font-size: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.formulario button:hover {
+  background-color: #3b6ef5;
+}
+
+/* Mensaje */
+#mensaje {
+  margin-top: 15px;
+  font-size: 16px;
+  color: #ff5050;
+}
+
+/* Enlaces inferiores */
+.formulario a {
+  display: block;
+  margin-top: 10px;
+  color: white;
+  font-size: 14px;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.formulario a:hover {
+  color: #3b6ef5;
+}
+

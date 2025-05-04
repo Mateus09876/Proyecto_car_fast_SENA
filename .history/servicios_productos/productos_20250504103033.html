@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalle del producto</title>
+    <style>
+        #detalles {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            max-width: 400px;
+        }
+        label {
+            display: block;
+            margin: 5px 0;
+        }
+        input, textarea, button {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Catálogo Car Fast</h2>
+    <button onclick="mostrarProducto()">Ver Producto</button>
+
+    <div id="detalles" style="display: none;">
+        <p><strong>ID:</strong> <span id="id"></span></p>
+        <p><strong>Nombre:</strong> <span id="nombre"></span></p>
+        <p><strong>Precio:</strong> $<span id="precio"></span></p>
+        <p><strong>Descripción:</strong> <span id="descripcion"></span></p>
+
+        <hr>
+        <label for="fecha">Fecha de compra:</label>
+        <input type="date" id="fecha">
+
+        <label for="hora">Hora:</label>
+        <input type="time" id="hora">
+
+        <button onclick="enviarWhatsApp()">Agendar por WhatsApp</button>
+    </div>
+
+    <script>
+        function mostrarProducto() {
+            // Simulamos datos del producto (puedes reemplazar esto con datos desde PHP/MySQL)
+            const producto = {
+                id: 101,
+                nombre: "Radio Android 9\"",
+                precio: 450000,
+                descripcion: "Radio táctil Android con Bluetooth, GPS y cámara de reversa."
+            };
+
+            // Mostramos los datos
+            document.getElementById("id").textContent = producto.id;
+            document.getElementById("nombre").textContent = producto.nombre;
+            document.getElementById("precio").textContent = producto.precio;
+            document.getElementById("descripcion").textContent = producto.descripcion;
+            document.getElementById("detalles").style.display = "block";
+        }
+
+        function enviarWhatsApp() {
+            const id = document.getElementById("id").textContent;
+            const nombre = document.getElementById("nombre").textContent;
+            const precio = document.getElementById("precio").textContent;
+            const descripcion = document.getElementById("descripcion").textContent;
+            const fecha = document.getElementById("fecha").value;
+            const hora = document.getElementById("hora").value;
+
+            if (!fecha || !hora) {
+                alert("Por favor selecciona una fecha y hora.");
+                return;
+            }
+
+            const mensaje = `Hola, quiero agendar la compra del producto:\n\n` +
+                            `🆔 ID: ${id}\n📦 Producto: ${nombre}\n💲 Precio: $${precio}\n📝 Detalles: ${descripcion}\n\n` +
+                            `📅 Fecha: ${fecha}\n⏰ Hora: ${hora}`;
+
+            const telefono = "573001112233"; // Reemplaza con tu número de WhatsApp (con código de país)
+            const url = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
+
+            window.open(url, "_blank");
+        }
+    </script>
+
+</body>
+</html>
