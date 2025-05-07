@@ -1,0 +1,8 @@
+{
+    "name": "car-fast",
+    "description": "Proyecto web Car Fast",
+    "require": {
+      "php": "7.4.*"
+    }
+  }
+  
