@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel de Administración - Car Fast</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 30px;
+      background-color: white;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      border-radius: 10px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 40px;
+    }
+
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 15px;
+      margin: 10px 0;
+      font-size: 18px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #0056b3;
+    }
+
+    .logout {
+      background-color: #dc3545;
+    }
+
+    .logout:hover {
+      background-color: #a71d2a;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Panel de Administración - Car Fast</h1>
+
+    <!-- Botones originales -->
+    <button class="btn" onclick="location.href='productos.html'">Administrar Productos</button>
+    <button class="btn" onclick="location.href='servicios.html'">Administrar Servicios</button>
+    <button class="btn" onclick="location.href='ventas.html'">Ver registro de ventas</button>
+
+    <!-- Botones nuevos -->
+    <button class="btn" onclick="location.href='ventas_servicios.html'">Ver registro de servicios</button>
+    <button class="btn" onclick="location.href='clientes_registro.html'">Ver registro de clientes</button>
+
+    <!-- Botón cerrar sesión -->
+    <button class="btn logout" onclick="location.href='inicio_sesion/car_fast.html'">Cerrar sesión</button>
+  </div>
+
+</body>
+</html>
+

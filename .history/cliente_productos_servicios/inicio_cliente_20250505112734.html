@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Car Fast - Inicio Cliente</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #1a1a1a;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .logo img {
+      width: 220px;
+      margin: 30px 0 10px;
+    }
+
+    .button-container {
+      width: 90%;
+      max-width: 400px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    button {
+      padding: 14px;
+      background-color: #007bff;
+      color: white;
+      border: 2px solid white;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .info-icon {
+      font-size: 28px;
+      cursor: pointer;
+      margin-top: 25px;
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 100;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.7);
+    }
+
+    .modal-content {
+      background-color: white;
+      color: black;
+      margin: 10% auto;
+      padding: 25px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 500px;
+    }
+
+    .close {
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+      color: #aaa;
+    }
+
+    .close:hover {
+      color: black;
+    }
+
+    @media screen and (max-width: 480px) {
+      button {
+        font-size: 15px;
+        padding: 12px;
+      }
+
+      .modal-content {
+        margin-top: 40%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="logo">
+    <img src="logo.png" alt="Logo Car Fast">
+  </div>
+
+  <div class="button-container">
+    <button onclick="location.href='ver_productos.html'">Ver productos</button>
+    <button onclick="location.href='ver_servicios.html'">Ver servicios</button>
+    <button onclick="window.open('https://wa.me/573232358467', '_blank')">Contratar por WhatsApp</button>
+    <button onclick="location.href='cerrar_sesion.php'">Cerrar sesión</button>
+  </div>
+
+  <div class="info-icon" onclick="document.getElementById('infoModal').style.display='block'">ℹ️</div>
+
+  <!-- Modal información -->
+  <div id="infoModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="document.getElementById('infoModal').style.display='none'">&times;</span>
+      <h3>Información de Car Fast</h3>
+      <p><strong>Servicios:</strong> Alarmas, bloqueos, elevavidrios, radios, polarizados, aire acondicionado, airbag y más.</p>
+      <p><strong>Dirección:</strong> Carrera 29 #65-24, Barrio Siete de Agosto, Bogotá</p>
+      <p><strong>Teléfono:</strong> 3232358467</p>
+      <p><strong>Correo:</strong> efimero2019.sl@gmail.com</p>
+      <p><strong>Horario:</strong> Lunes a Sábado de 8:00 AM a 6:00 PM</p>
+    </div>
+  </div>
+
+  <script>
+    window.onclick = function(event) {
+      var modal = document.getElementById('infoModal');
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+  </script>
+
+</body>
+</html>

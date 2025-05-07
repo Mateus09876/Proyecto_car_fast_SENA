@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Historial de Ventas - Car Fast</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+    th, td {
+      padding: 8px;
+      border: 1px solid #ccc;
+      text-align: left;
+    }
+    .filtros {
+      margin-bottom: 15px;
+    }
+    .filtros input, .filtros select {
+      margin-right: 10px;
+      padding: 5px;
+    }
+    .btn-regresar {
+      margin-bottom: 20px;
+      padding: 8px 16px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    .acciones button {
+      margin: 2px 0;
+      padding: 4px 8px;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+    .acciones button:first-child {
+      background-color: #007bff;
+      color: white;
+    }
+    .acciones button:last-child {
+      background-color: #e74c3c;
+      color: white;
+    }
+    tr.confirmado {
+      background-color: #d4f7d4;
+    }
+    .calendar {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-gap: 10px;
+      margin-top: 20px;
+    }
+    .month-cell {
+      padding: 10px;
+      background-color: #f0f0f0;
+      border: 1px solid #ccc;
+      text-align: center;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <button class="btn-regresar" onclick="location.href='index.html'">← Regresar</button>
+
+  <h2>Historial de Ventas</h2>
+
+  <div class="filtros">
+    <label>Fecha:</label>
+    <input type="date" id="filtroFecha">
+    
+    <button onclick="cargarVentas()">Aplicar Filtros</button>
+  </div>
+
+  <div id="calendar" class="calendar">
+    <!-- Las celdas del calendario se generarán aquí -->
+  </div>
+
+  <script>
+    async function cargarVentas() {
+      const fecha = document.getElementById("filtroFecha").value;
+
+      try {
+        const response = await fetch("obtener_ventas.php");
+        const ventas = await response.json();
+        const calendar = document.getElementById("calendar");
+        calendar.innerHTML = "";  // Limpiar el calendario
+
+        // Agrupar las ventas por mes
+        const ventasPorMes = {};
+
+        ventas.forEach(v => {
+          const fechaVenta = new Date(v.fecha);
+          const mes = fechaVenta.getMonth(); // Mes (0-11)
+          const anio = fechaVenta.getFullYear();
+          const key = `${anio}-${mes}`;
+
+          if (!ventasPorMes[key]) {
+            ventasPorMes[key] = [];
+          }
+
+          ventasPorMes[key].push(v);
+        });
+
+        // Generar celdas para cada mes
+        Object.keys(ventasPorMes).forEach(key => {
+          const [anio, mes] = key.split('-');
+          const monthCell = document.createElement("div");
+          monthCell.classList.add("month-cell");
+          monthCell.innerHTML = `
+            <strong>${getNombreMes(mes)} ${anio}</strong>
+            <ul>
+              ${ventasPorMes[key].map(v => `
+                <li>${v.nombre_cliente} - ${v.item} - ${v.precio} - ${v.fecha}</li>
+              `).join('')}
+            </ul>
+          `;
+          calendar.appendChild(monthCell);
+        });
+        
+      } catch (error) {
+        alert("Error al cargar las ventas: " + error);
+      }
+    }
+
+    // Función para obtener el nombre del mes
+    function getNombreMes(mes) {
+      const meses = [
+        "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+        "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
+      ];
+      return meses[mes];
+    }
+
+    cargarVentas();
+  </script>
+
+</body>
+</html>
+
+
+
+
+

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Car Fast - Inicio de Sesión</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f1f1f1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .logo {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .logo img {
+      width: 200px;
+      max-width: 90%;
+    }
+
+    .login-container {
+      background-color: #1e2a38;
+      padding: 30px 20px;
+      border-radius: 10px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+      width: 100%;
+      max-width: 400px;
+      color: white;
+      text-align: center;
+      margin: 20px;
+    }
+
+    .login-container h2 {
+      margin-bottom: 20px;
+    }
+
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #1d4ed8;
+      border-radius: 5px;
+      background-color: #2c3e50;
+      color: white;
+      font-size: 16px;
+    }
+
+    .login-container button {
+      width: 100%;
+      padding: 12px;
+      background-color: #1d4ed8;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+
+    .login-container a {
+      color: #fff;
+      display: block;
+      margin-top: 12px;
+      text-decoration: none;
+      font-size: 15px;
+    }
+
+    .info-icon {
+      margin-top: 10px;
+      cursor: pointer;
+      font-size: 24px;
+      color: #fff;
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background: rgba(0, 0, 0, 0.6);
+    }
+
+    .modal-content {
+      background-color: white;
+      margin: 10% auto;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 500px;
+      width: 90%;
+      color: #333;
+    }
+
+    .modal-content h3 {
+      margin-top: 0;
+    }
+
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .close:hover {
+      color: #000;
+    }
+
+    ul {
+      text-align: left;
+      padding-left: 20px;
+    }
+
+    @media screen and (max-width: 480px) {
+      .login-container {
+        padding: 20px 15px;
+      }
+
+      .login-container h2 {
+        font-size: 20px;
+      }
+
+      input[type="email"],
+      input[type="password"] {
+        font-size: 14px;
+      }
+
+      .login-container button,
+      .login-container a {
+        font-size: 14px;
+      }
+
+      .modal-content {
+        margin: 30% auto;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="logo">
+    <img src="logo.png" alt="Logo Car Fast" />
+  </div>
+
+  <div class="login-container">
+    <h2>Bienvenido a Car Fast</h2>
+    <form action="login.php" method="POST">
+      <input type="email" name="correo" placeholder="Correo" required />
+      <input type="password" name="contrasena" placeholder="Contraseña" required />
+      <button type="submit">Iniciar sesión</button>
+    </form>
+
+    <a href="registro_cliente/index.html">Registrarse</a>
+    <a href="registro_admin/login_admin.html">Administrador</a>
+    <div class="info-icon" onclick="mostrarInfo()">ℹ️ Información</div>
+  </div>
+
+  <!-- Modal -->
+  <div id="infoModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="cerrarInfo()">&times;</span>
+      <h3>Información de contacto - Car Fast</h3>
+      <p><strong>Servicios:</strong></p>
+      <ul>
+        <li>Alarmas</li>
+        <li>Bloqueos</li>
+        <li>Elevavidrios</li>
+        <li>Radios</li>
+        <li>Polarizados</li>
+        <li>Aire acondicionado</li>
+        <li>Airbag</li>
+        <li>Y más...</li>
+      </ul>
+      <p><strong>Dirección:</strong> Carrera 29 #65-24, Barrio Siete de Agosto, Bogotá</p>
+      <p><strong>Teléfono:</strong> <a href="https://wa.me/573232358467" target="_blank">323 2358467</a></p>
+      <p><strong>Correo:</strong> <a href="mailto:efimero2019.sl@gmail.com">efimero2019.sl@gmail.com</a></p>
+      <p><strong>Horario:</strong> Lunes a Sábado, de 8:00 AM a 6:00 PM</p>
+    </div>
+  </div>
+
+  <script>
+    function mostrarInfo() {
+      document.getElementById("infoModal").style.display = "block";
+    }
+
+    function cerrarInfo() {
+      document.getElementById("infoModal").style.display = "none";
+    }
+
+    window.onclick = function (event) {
+      if (event.target == document.getElementById("infoModal")) {
+        cerrarInfo();
+      }
+    };
+  </script>
+
+</body>
+</html>

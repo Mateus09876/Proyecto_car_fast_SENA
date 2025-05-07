@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="logo.jpg">
+    <link rel="stylesheet" href="estilos.css">
+    <link rel="stylesheet" href="style.css">
+    <title>Registro - Car Fast</title>
+</head>
+<body>
+
+    <div class="formulario">
+        <img src="imagen/logo.jpg" width="330" height="224" alt="logotipo">
+        <br><br>
+
+        <form id="form-register" class="form-register" method="POST" action="registro.php">
+            <h4>Registro de Cliente</h4>
+
+            <!-- Campo de nombre -->
+            <input class="controls" type="text" name="nombre" id="nombre" placeholder="Ingrese su Nombre" required>
+
+            <!-- Campo de apellido -->
+            <input class="controls" type="text" name="apellido" id="apellido" placeholder="Ingrese su Apellido" required>
+
+            <!-- Campo de correo -->
+            <input class="controls" type="email" name="correo" id="correo" placeholder="Ingrese su Correo" required>
+
+            <!-- Campo de contraseña -->
+            <input class="controls" type="password" name="password" id="password" placeholder="Ingrese su Contraseña" required>
+
+            <!-- Botón de registro -->
+            <button class="botons" type="submit">Registrar</button>
+
+            <!-- Enlace para ir al inicio de sesión -->
+            <p>¿Ya tienes cuenta? <a href="/car_fast/registro_cliente/login.html">Iniciar sesión</a></p>
+
+        </form>
+    </div>
+
+</body>
+</html>
+

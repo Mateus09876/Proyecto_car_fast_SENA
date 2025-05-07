@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Calendario de Ventas - Car Fast</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    .btn-regresar {
+      margin-bottom: 20px;
+      padding: 8px 16px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    .calendario {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .mes {
+      border: 1px solid #ccc;
+      padding: 10px;
+      border-radius: 5px;
+    }
+    .mes h4 {
+      text-align: center;
+    }
+    .dias {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 2px;
+    }
+    .dia {
+      padding: 5px;
+      text-align: center;
+      cursor: pointer;
+      border: 1px solid #eee;
+    }
+    .dia:hover {
+      background-color: #f0f0f0;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: left;
+    }
+    .acciones button {
+      margin: 2px 0;
+      padding: 4px 8px;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+    .acciones button:first-child {
+      background-color: #007bff;
+      color: white;
+    }
+    .acciones button:last-child {
+      background-color: #e74c3c;
+      color: white;
+    }
+    tr.confirmado {
+      background-color: #d4f7d4;
+    }
+  </style>
+</head>
+<body>
+
+  <button class="btn-regresar" onclick="location.href='index.html'">← Regresar</button>
+  <h2>Calendario de Ventas</h2>
+
+  <label>Tipo:</label>
+  <select id="filtroTipo">
+    <option value="">Todos</option>
+    <option value="producto">Producto</option>
+    <option value="servicio">Servicio</option>
+  </select>
+
+  <div class="calendario" id="calendario"></div>
+
+  <table id="tablaVentas">
+    <thead>
+      <tr>
+        <th>Cliente</th>
+        <th>Teléfono</th>
+        <th>Dirección</th>
+        <th>Item</th>
+        <th>Precio</th>
+        <th>Descripción</th>
+        <th>Fecha</th>
+        <th>Tipo</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody id="ventas-body"></tbody>
+  </table>
+
+  <script>
+    const meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+
+    function generarCalendario() {
+      const contenedor = document.getElementById("calendario");
+      const hoy = new Date();
+      const year = hoy.getFullYear();
+
+      for (let mes = 0; mes < 12; mes++) {
+        const divMes = document.createElement("div");
+        divMes.classList.add("mes");
+        divMes.innerHTML = `<h4>${meses[mes]}</h4><div class="dias"></div>`;
+        const diasDiv = divMes.querySelector(".dias");
+
+        const diasEnMes = new Date(year, mes + 1, 0).getDate();
+
+        for (let dia = 1; dia <= diasEnMes; dia++) {
+          const divDia = document.createElement("div");
+          divDia.classList.add("dia");
+          divDia.textContent = dia;
+          const fechaISO = `${year}-${String(mes + 1).padStart(2, '0')}-${String(dia).padStart(2, '0')}`;
+          divDia.onclick = () => cargarVentas(fechaISO);
+          diasDiv.appendChild(divDia);
+        }
+
+        contenedor.appendChild(divMes);
+      }
+    }
+
+    async function cargarVentas(fechaSeleccionada) {
+      const tipo = document.getElementById("filtroTipo").value;
+      try {
+        const response = await fetch("obtener_ventas.php");
+        const ventas = await response.json();
+        const tbody = document.getElementById("ventas-body");
+        tbody.innerHTML = "";
+
+        ventas
+          .filter(v => (!tipo || v.tipo === tipo) && v.fecha === fechaSeleccionada)
+          .sort((a, b) => {
+            if (a.estado !== b.estado) return a.estado === "pendiente" ? -1 : 1;
+            return new Date(b.fecha) - new Date(a.fecha);
+          })
+          .forEach(v => {
+            const row = document.createElement("tr");
+            row.setAttribute("data-id", v.id_venta);
+            if (v.estado === "confirmado") row.classList.add("confirmado");
+
+            row.innerHTML = `
+              <td>${v.nombre_cliente}</td>
+              <td>${v.telefono}</td>
+              <td>${v.direccion}</td>
+              <td>${v.item}</td>
+              <td>${v.precio}</td>
+              <td>${v.descripcion || ''}</td>
+              <td>${v.fecha}</td>
+              <td>${v.tipo}</td>
+              <td class="estado">${v.estado === 'confirmado' ? '✅Confirmado' : v.estado}</td>
+              <td class="acciones">
+                ${v.estado === 'pendiente' ? `
+                  <button onclick="confirmarVenta(${v.id_venta}, this)">Confirmar</button><br>
+                  <button onclick="eliminarVenta(${v.id_venta})">Eliminar</button>
+                ` : ''}
+              </td>
+            `;
+
+            tbody.appendChild(row);
+          });
+
+      } catch (err) {
+        alert("Error al cargar ventas: " + err);
+      }
+    }
+
+    function confirmarVenta(id, boton) {
+      fetch('confirmar_venta.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: `id=${id}`
+      })
+      .then(res => res.text())
+      .then(msg => {
+        alert(msg);
+        const row = boton.closest("tr");
+        row.classList.add("confirmado");
+        row.querySelector(".estado").textContent = "✅Confirmado";
+        row.querySelector(".acciones").innerHTML = "";
+      });
+    }
+
+    function eliminarVenta(id) {
+      if (confirm("¿Estás seguro de eliminar esta venta?")) {
+        fetch('eliminar_venta.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: `id=${id}`
+        })
+        .then(res => res.text())
+        .then(msg => {
+          alert(msg);
+          document.querySelector(`tr[data-id='${id}']`).remove();
+        });
+      }
+    }
+
+    generarCalendario();
+  </script>
+
+</body>
+</html>
+
+
+
+

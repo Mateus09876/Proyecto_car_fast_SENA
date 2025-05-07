@@ -1,0 +1,155 @@
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+/* Estilos generales */
+body {
+  text-align: center;
+  font-family: 'Calibri', sans-serif;
+  background-color: #f8f8f8;
+  padding: 0 10px; /* Añadido padding para no dejar espacios en los bordes */
+}
+
+/* Fondo principal */
+#principal {
+  min-height: 100vh;
+  background: url('imagen/log') no-repeat center center fixed;
+  background-size: cover;
+}
+
+/* Contenedor del formulario */
+.formulario {
+  width: 100%;
+  max-width: 400px; /* Limita el ancho máximo del formulario */
+  margin: 100px auto;
+  padding: 30px;
+  background: #24303c;
+  border-radius: 4px;
+  box-shadow: 7px 13px 37px #000;
+  color: white;
+  text-align: left; /* Cambié de 'start' a 'left' para mantener el alineado correcto */
+  box-sizing: border-box;
+}
+
+/* Título del formulario */
+.form-register h4 {
+  font-size: 22px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Estilo de los campos de entrada */
+.controls {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 16px;
+  border-radius: 4px;
+  border: 1px solid #1f53c5;
+  background-color: #1a1a1a;
+  font-family: 'calibri', sans-serif;
+  font-size: 18px;
+  color: white;
+  box-sizing: border-box;
+}
+
+/* Párrafo del formulario */
+.form-register p {
+  height: 40px;
+  text-align: center;
+  font-size: 18px;
+  line-height: 40px;
+}
+
+/* Enlaces dentro del formulario */
+.form-register a {
+  color: white;
+  text-decoration: none;
+}
+
+.form-register a:hover {
+  color: blue;
+  text-decoration: underline;
+}
+
+/* Estilo del botón */
+.form-register .botons {
+  width: 100%;
+  padding: 12px;
+  background: #1f53c5;
+  border: none;
+  color: white;
+  margin: 16px 0;
+  font-size: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.form-register .botons:hover {
+  background-color: #3b6ef5;
+}
+
+/* Media Queries para pantallas pequeñas */
+
+@media (max-width: 600px) {
+  /* Se ajusta el tamaño de los elementos en pantallas pequeñas */
+  .formulario {
+    padding: 20px; /* Reduce el padding */
+    margin-top: 50px;
+  }
+
+  .form-register h4 {
+    font-size: 20px; /* Ajusta el tamaño del título */
+  }
+
+  .controls {
+    font-size: 16px; /* Ajusta el tamaño de las fuentes de los campos */
+  }
+
+  .form-register .botons {
+    font-size: 14px; /* Ajusta el tamaño de la fuente en el botón */
+  }
+
+  /* Párrafo y enlaces */
+  .form-register p {
+    font-size: 16px;
+  }
+
+  .form-register a {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 400px) {
+  /* Ajustes para pantallas más pequeñas */
+  .formulario {
+    width: 90%;
+    padding: 15px;
+    margin-top: 40px;
+  }
+
+  .form-register h4 {
+    font-size: 18px; /* Reduce aún más el tamaño del título */
+  }
+
+  .controls {
+    font-size: 14px; /* Ajuste adicional en los campos */
+  }
+
+  .form-register .botons {
+    font-size: 12px; /* Reduce el tamaño del botón */
+  }
+
+  /* Ajustes de texto para enlaces */
+  .form-register p {
+    font-size: 14px;
+  }
+
+  .form-register a {
+    font-size: 12px;
+  }
+}

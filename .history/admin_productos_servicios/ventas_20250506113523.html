@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Historial de Ventas - Car Fast</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+    th, td {
+      padding: 8px;
+      border: 1px solid #ccc;
+      text-align: left;
+    }
+    .filtros {
+      margin-bottom: 15px;
+    }
+    .filtros input, .filtros select {
+      margin-right: 10px;
+      padding: 5px;
+    }
+    .btn-regresar {
+      margin-bottom: 20px;
+      padding: 8px 16px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    .acciones button {
+      margin: 2px 0;
+      padding: 4px 8px;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+    .acciones button:first-child {
+      background-color: #007bff;
+      color: white;
+    }
+    .acciones button:last-child {
+      background-color: #e74c3c;
+      color: white;
+    }
+    tr.confirmado {
+      background-color: #d4f7d4;
+    }
+  </style>
+</head>
+<body>
+
+  <button class="btn-regresar" onclick="location.href='index.html'">← Regresar</button>
+
+  <h2>Historial de Ventas</h2>
+
+  <div class="filtros">
+    <label>Fecha:</label>
+    <input type="date" id="filtroFecha">
+    
+    <label>Tipo:</label>
+    <select id="filtroTipo">
+      <option value="">Todos</option>
+      <option value="producto">Producto</option>
+      <option value="servicio">Servicio</option>
+    </select>
+
+    <button onclick="cargarVentas()">Aplicar Filtros</button>
+  </div>
+
+  <table id="tablaVentas">
+    <thead>
+      <tr>
+        <th>Cliente</th>
+        <th>Teléfono</th>
+        <th>Dirección</th>
+        <th>Item</th>
+        <th>Precio</th>
+        <th>Descripción</th>
+        <th>Fecha</th>
+        <th>Tipo</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody id="ventas-body">
+      <!-- Ventas dinámicas -->
+    </tbody>
+  </table>
+
+  <script>
+    async function cargarVentas() {
+      const fecha = document.getElementById("filtroFecha").value;
+      const tipo = document.getElementById("filtroTipo").value;
+
+      try {
+        const response = await fetch("obtener_ventas.php");
+        const ventas = await response.json();
+        const tbody = document.getElementById("ventas-body");
+        tbody.innerHTML = "";
+
+        ventas.forEach(v => {
+          const coincideFecha = !fecha || v.fecha === fecha;
+          const coincideTipo = !tipo || v.tipo === tipo;
+
+          if (coincideFecha && coincideTipo) {
+            const row = document.createElement("tr");
+            row.setAttribute("data-id", v.id_venta);
+            if (v.estado === "confirmado") row.classList.add("confirmado");
+
+            row.innerHTML = `
+              <td>${v.nombre_cliente}</td>
+              <td>${v.telefono}</td>
+              <td>${v.direccion}</td>
+              <td>${v.item}</td>
+              <td>${v.precio}</td>
+              <td>${v.descripcion || ''}</td>
+              <td>${v.fecha}</td>
+              <td>${v.tipo}</td>
+              <td class="estado">${v.estado}</td>
+              <td class="acciones">
+                ${v.estado === 'pendiente' ? `
+                  <button onclick="confirmarVenta(${v.id_venta}, this)">Confirmar</button><br>
+                  <button onclick="eliminarVenta(${v.id_venta})">Eliminar</button>
+                ` : ''}
+              </td>
+            `;
+
+            tbody.appendChild(row);
+          }
+        });
+      } catch (error) {
+        alert("Error al cargar las ventas: " + error);
+      }
+    }
+
+    function confirmarVenta(id, boton) {
+      fetch('confirmar_venta.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: `id=${id}`
+      })
+      .then(res => res.text())
+      .then(msg => {
+        alert(msg);
+        const row = boton.closest("tr");
+        row.classList.add("confirmado");
+        row.querySelector(".estado").textContent = "✅";
+        row.querySelector(".acciones").innerHTML = "";
+      });
+    }
+
+    function eliminarVenta(id) {
+      if (confirm("¿Estás seguro de eliminar esta venta?")) {
+        fetch('eliminar_venta.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: `id=${id}`
+        })
+        .then(res => res.text())
+        .then(msg => {
+          alert(msg);
+          cargarVentas();
+        });
+      }
+    }
+
+    cargarVentas();
+  </script>
+
+</body>
+</html>
+
+
+

@@ -1,0 +1,102 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+body {
+  text-align: center;
+  border: 0px solid;
+  font-family: 'calibri', sans-serif;
+  background: #f4f4f4;
+}
+
+#principal {
+  min-height: 100vh;
+  background: url('imagen/log.jpg') no-repeat center center;
+  background-size: cover;
+}
+
+.form-register {
+  text-align: start;
+  width: 90%;  /* Cambié a un valor relativo para que se ajuste mejor en pantallas pequeñas */
+  max-width: 400px;  /* Añadí un max-width para limitar el tamaño en pantallas grandes */
+  background: #24303c;
+  padding: 30px;
+  margin: 30px auto;
+  border-radius: 4px;
+  font-family: 'calibri';
+  color: white;
+  box-shadow: 7px 13px 37px #000;
+}
+
+.form-register h4 {
+  font-size: 22px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.controls {
+  width: 100%;
+  background: #24303c;
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 16px;
+  border: 1px solid #1f53c5;
+  font-family: 'calibri';
+  font-size: 18px;
+  color: white;
+}
+
+.form-register p {
+  height: 40px;
+  text-align: center;
+  font-size: 18px;
+  line-height: 40px;
+}
+
+.form-register a {
+  color: white;
+  text-decoration: none;
+}
+
+.form-register a:hover {
+  color: blue;
+  text-decoration: underline;
+}
+
+.form-register .botons {
+  width: 100%;
+  background: #1f53c5;
+  border: none;
+  padding: 12px;
+  color: white;
+  margin: 16px 0;
+  font-size: 16px;
+}
+
+/* Media Queries para hacer el diseño responsivo */
+@media (max-width: 600px) {
+  .form-register {
+      width: 90%; /* En pantallas más pequeñas, usa el 90% del ancho */
+      margin-top: 20px;
+  }
+
+  .form-register h4 {
+      font-size: 18px;
+  }
+
+  .controls {
+      font-size: 16px; /* Ajustar tamaño de texto para pantallas pequeñas */
+  }
+
+  .form-register .botons {
+      font-size: 14px;
+  }
+
+  img {
+      width: 80%; /* El logo también debe ser flexible */
+      height: auto;
+  }
+}

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="logo.jpg">
+  
+  <title>Bienvenido a Car Fast - Tienda Virtual</title>
+  <style>
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #1a1a1a;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logo img {
+  width: 220px;
+  margin-top: 30px;
+}
+
+.login-container {
+  background-color: #1a1a1a;
+  border-radius: 10px;
+  padding: 40px 30px;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  margin-top: 20px;
+  text-align: center;
+}
+
+.login-container h2 {
+  font-size: 24px;
+  margin-bottom: 25px;
+  color: white;
+}
+
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  padding: 14px;
+  margin: 10px 0;
+  background-color: #2c2c2c;
+  border: 2px solid #444;
+  border-radius: 8px;
+  font-size: 16px;
+  color: #fff;
+  outline: none;
+}
+
+input[type="email"]:focus,
+input[type="password"]:focus {
+  border-color: #007bff;
+}
+
+button {
+  width: 100%;
+  padding: 14px;
+  background-color: #007bff;
+  color: white;
+  border: 2px solid white;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+a {
+  display: block;
+  margin-top: 12px;
+  color: #ccc;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+a:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.info-icon {
+  font-size: 22px;
+  margin-top: 15px;
+  cursor: pointer;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 100;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.7);
+}
+
+.modal-content {
+  background-color: white;
+  color: black;
+  margin: 10% auto;
+  padding: 25px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.close {
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+  color: #aaa;
+}
+
+.close:hover {
+  color: black;
+}
+
+@media screen and (max-width: 480px) {
+  .login-container {
+    padding: 25px 20px;
+  }
+
+  input[type="email"],
+  input[type="password"],
+  button {
+    font-size: 15px;
+    padding: 12px;
+  }
+
+  .login-container h2 {
+    font-size: 20px;
+  }
+
+  .modal-content {
+    margin-top: 40%;
+  }
+}
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img src="imagen/logo.jpg" width="330" height="224" alt="logotipo">
+        <br><br>
+    <h1>Bienvenido a Car Fast</h1>
+    <p>Alarmas bloqueos elevavidrios,radios,polarizados,aire acondicionado,air bag<h1> y más.</p>
+    <p>Estamos aquí para ayudarte a encontrar lo que necesitas.</p>
+    <p><strong>Dirección:</strong> Carrera 29#65-24 Barrio:siete de agosto_Bogota</p>
+    <p><strong>Teléfono:</strong> 3232358467</p>
+    <p><strong>Correo: efimero2019.sl@gmail.com</strong></p>
+    <p><strong>Horario de atención:</strong> Lunes a Sábado de 8:00 AM a 6:00 PM</p>
+
+
+    <div class="botones">
+      <a class="boton" href="ver_productos.php">Ver Productos</a>
+      <a class="boton" href="ver_servicios.php">Ver Servicios</a>
+      <a class="boton whatsapp" href="https://wa.me/573232358467?text=Hola%2C%20%C2%BFme%20podr%C3%ADas%20regalar%20m%C3%A1s%20informaci%C3%B3n%3F" target="_blank">
+        Contactar por WhatsApp
+    </a>
+    
+      <a class="boton salir" href="/car_fast/inicio_sesion/car_fast.html">Cerrar Sesión</a>
+    </div>
+  </div>
+</body>
+</html>

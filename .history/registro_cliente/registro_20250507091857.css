@@ -1,0 +1,156 @@
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Estilos generales */
+body {
+  min-height: 100vh;
+  font-family: 'Calibri', sans-serif;
+  background-color: #fbf8f8;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Cambié align-items a flex-start para evitar que el formulario se aleje */
+  flex-direction: column;
+  padding: 10px; /* Asegura que no haya espacios en los bordes en pantallas pequeñas */
+  margin-top: 20px; /* Pequeño margen superior para no pegar el formulario a la parte superior de la pantalla */
+}
+
+/* Contenedor principal del formulario */
+.formulario {
+  width: 100%;
+  max-width: 400px; /* Ancho máximo del formulario */
+  background: #24303c;
+  padding: 20px; /* Reducido el padding para evitar el gran espacio */
+  border-radius: 8px;
+  color: white;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  box-sizing: border-box;
+  margin-top: 20px; /* Añadí un margen para separar un poco de la parte superior */
+}
+
+/* Imagen superior */
+.formulario img {
+  margin-bottom: 20px; /* Menor margen para reducir el espacio */
+  border-radius: 10px;
+  width: 100%;
+  max-width: 330px;
+}
+
+/* Título */
+.formulario h2 {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* Campos de entrada */
+.formulario input[type="email"],
+.formulario input[type="password"],
+.formulario input[type="text"] {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0; /* Menor margen entre campos */
+  border: 1px solid #1f53c5;
+  border-radius: 4px;
+  background-color: #1a1a1a;
+  color: white;
+  font-size: 16px;
+  box-sizing: border-box; /* Evita desbordamientos */
+}
+
+/* Botón */
+.formulario button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  background-color: #1f53c5;
+  border: none;
+  color: white;
+  font-size: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.formulario button:hover {
+  background-color: #3b6ef5;
+}
+
+/* Mensaje */
+#mensaje {
+  margin-top: 15px;
+  font-size: 16px;
+  color: #ff5050;
+}
+
+/* Enlaces inferiores */
+.formulario a {
+  display: block;
+  margin-top: 10px;
+  color: white;
+  font-size: 14px;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.formulario a:hover {
+  color: #3b6ef5;
+}
+
+/* Media Queries para mejorar la visualización en móviles */
+
+/* Pantallas más pequeñas */
+@media (max-width: 600px) {
+  body {
+    margin-top: 10px; /* Asegura que el formulario se vea más cerca de la parte superior */
+  }
+
+  .formulario {
+    padding: 15px; /* Menos espacio en pantallas pequeñas */
+    width: 90%; /* Mantiene el formulario con un buen tamaño en pantallas pequeñas */
+    margin-top: 10px; /* Reduce el margen superior */
+  }
+
+  .formulario img {
+    width: 100%; /* Hace que la imagen ocupe todo el ancho disponible */
+    margin-bottom: 20px;
+  }
+
+  .formulario h2 {
+    font-size: 18px; /* Ajustamos el tamaño de la fuente */
+  }
+
+  .formulario input[type="email"],
+  .formulario input[type="password"],
+  .formulario input[type="text"],
+  .formulario button {
+    font-size: 14px; /* Reducimos el tamaño de los inputs y botones */
+  }
+}
+
+/* Pantallas muy pequeñas (como en algunos teléfonos más pequeños) */
+@media (max-width: 400px) {
+  .formulario {
+    padding: 10px; /* Ajustamos aún más los márgenes */
+  }
+
+  .formulario h2 {
+    font-size: 16px; /* Hacemos que el título sea más pequeño */
+  }
+
+  .formulario input[type="email"],
+  .formulario input[type="password"],
+  .formulario input[type="text"],
+  .formulario button {
+    font-size: 13px; /* Ajustamos el tamaño de los inputs y botones */
+  }
+
+  .formulario a {
+    font-size: 12px; /* Hacemos que el enlace sea más pequeño */
+  }
+}
+

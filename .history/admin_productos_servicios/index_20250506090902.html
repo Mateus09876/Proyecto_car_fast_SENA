@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel de Administración - Car Fast</title>
+  <style>
+    /* Estilos generales */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    h1 {
+      text-align: center;
+      color: #444;
+    }
+
+    /* Contenedor de los botones */
+    .button-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 30px;
+    }
+
+    /* Estilos para los botones */
+    button {
+      padding: 12px 24px;
+      font-size: 18px;
+      margin: 10px;
+      cursor: pointer;
+      border: none;
+      background-color: #444;
+      color: white;
+      border-radius: 5px;
+      width: 300px;
+    }
+
+    button:hover {
+      background-color: #333;
+    }
+
+    /* Estilos para la barra de navegación */
+    nav {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 20px;
+    }
+
+    nav button {
+      width: auto;
+      background-color: #e74c3c;
+      font-size: 16px;
+    }
+
+    nav button:hover {
+      background-color: #c0392b;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Barra de navegación con Cerrar sesión -->
+  <nav>
+    <button onclick="location.href='inicio_sesion/car_fast.html'">Cerrar sesión</button>
+  </nav>
+
+  <!-- Título principal -->
+  <h1>Bienvenido al Panel de Administración de Car Fast</h1>
+
+  <!-- Contenedor de los botones de navegación -->
+  <div class="button-container">
+    <button onclick="location.href='ventas_productos.html'">Ver registro de productos</button>
+    <button onclick="location.href='ventas_servicios.html'">Ver registro de servicios</button>
+    <button onclick="location.href='clientes_registro.html'">Ver registro de clientes</button>
+  </div>
+
+</body>
+</html>
+

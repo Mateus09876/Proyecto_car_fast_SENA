@@ -1,0 +1,54 @@
+<tbody id="ventas-body">
+    <!-- Este contenido lo rellena obtener_ventas.php vía fetch -->
+  </tbody>
+  
+  <script>
+  fetch('obtener_ventas.php')
+    .then(res => res.json())
+    .then(data => {
+      const body = document.getElementById('ventas-body');
+      body.innerHTML = '';
+      data.forEach(venta => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${venta.id}</td>
+          <td>${venta.nombre_cliente}</td>
+          <td>${venta.telefono}</td>
+          <td>${venta.producto_servicio}</td>
+          <td>${venta.precio}</td>
+          <td>${venta.fecha}</td>
+          <td>${venta.tipo}</td>
+          <td>
+            <button onclick="confirmarVenta(${venta.id})">Confirmar</button>
+            <button onclick="eliminarVenta(${venta.id})">Eliminar</button>
+          </td>
+        `;
+        body.appendChild(row);
+      });
+    });
+  
+  function confirmarVenta(id) {
+    fetch('confirmar_venta.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: `id=${id}`
+    })
+    .then(res => res.text())
+    .then(alert)
+    .then(() => location.reload());
+  }
+  
+  function eliminarVenta(id) {
+    if (confirm("¿Estás seguro de eliminar esta venta?")) {
+      fetch('eliminar_venta.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: `id=${id}`
+      })
+      .then(res => res.text())
+      .then(alert)
+      .then(() => location.reload());
+    }
+  }
+  </script>
+  

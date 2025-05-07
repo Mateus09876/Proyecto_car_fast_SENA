@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Historial de Ventas - Car Fast</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+    th, td {
+      padding: 8px;
+      border: 1px solid #ccc;
+      text-align: left;
+    }
+    .filtros {
+      margin-bottom: 15px;
+    }
+    .filtros input, .filtros select {
+      margin-right: 10px;
+      padding: 5px;
+    }
+    .btn-regresar {
+      margin-bottom: 20px;
+      padding: 8px 16px;
+      background-color:  #1f53c5;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <button class="btn-regresar" onclick="location.href='index.html'">← Regresar </button>
+
+  <h2>Historial de Ventas</h2>
+
+  <div class="filtros">
+    <label>Fecha:</label>
+    <input type="date" id="filtroFecha">
+    
+    <label>Tipo:</label>
+    <select id="filtroTipo">
+      <option value="">Todos</option>
+      <option value="producto">Producto</option>
+      <option value="servicio">Servicio</option>
+    </select>
+
+    <button onclick="cargarVentas()">Aplicar Filtros</button>
+  </div>
+
+  <table id="tablaVentas">
+    <thead>
+      <tr>
+        <th>Cliente</th>
+        <th>Teléfono</th>
+        <th>Dirección</th>
+        <th>Item</th>
+        <th>Precio</th>
+        <th>Fecha</th>
+        <th>Tipo</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tbody id="ventas-body">
+            <!-- Este contenido lo rellena obtener_ventas.php vía fetch -->
+          </tbody>
+          
+          <script>
+          fetch('obtener_ventas.php')
+            .then(res => res.json())
+            .then(data => {
+              const body = document.getElementById('ventas-body');
+              body.innerHTML = '';
+              data.forEach(venta => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                  <td>${venta.id}</td>
+                  <td>${venta.nombre_cliente}</td>
+                  <td>${venta.telefono}</td>
+                  <td>${venta.producto_servicio}</td>
+                  <td>${venta.precio}</td>
+                  <td>${venta.fecha}</td>
+                  <td>${venta.tipo}</td>
+                  <td>
+                    <button onclick="confirmarVenta(${venta.id})">Confirmar</button>
+                    <button onclick="eliminarVenta(${venta.id})">Eliminar</button>
+                  </td>
+                `;
+                body.appendChild(row);
+              });
+            });
+          
+          function confirmarVenta(id) {
+            fetch('confirmar_venta.php', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+              body: `id=${id}`
+            })
+            .then(res => res.text())
+            .then(alert)
+            .then(() => location.reload());
+          }
+          
+          function eliminarVenta(id) {
+            if (confirm("¿Estás seguro de eliminar esta venta?")) {
+              fetch('eliminar_venta.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: `id=${id}`
+              })
+              .then(res => res.text())
+              .then(alert)
+              .then(() => location.reload());
+            }
+          }
+          </script>
+          
+    </tbody>
+  </table>
+
+  <script>
+    async function cargarVentas() {
+      const fecha = document.getElementById("filtroFecha").value;
+      const tipo = document.getElementById("filtroTipo").value;
+
+      const response = await fetch("obtener_ventas.php");
+      const ventas = await response.json();
+
+      const tbody = document.querySelector("#tablaVentas tbody");
+      tbody.innerHTML = "";
+
+      ventas.forEach(v => {
+        const coincideFecha = !fecha || v.fecha === fecha;
+        const coincideTipo = !tipo || v.tipo === tipo;
+
+        if (coincideFecha && coincideTipo) {
+          const fila = `
+            <tr>
+              <td>${v.nombre_cliente}</td>
+              <td>${v.telefono}</td>
+              <td>${v.direccion}</td>
+              <td>${v.item}</td>
+              <td>${v.precio}</td>
+              <td>${v.fecha}</td>
+              <td>${v.tipo}</td>
+            </tr>
+          `;
+          tbody.innerHTML += fila;
+        }
+      });
+    }
+
+    // Carga inicial
+    cargarVentas();
+  </script>
+
+</body>
+</html>

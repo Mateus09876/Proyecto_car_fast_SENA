@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Productos Car Fast</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; background: #f4f4f4; }
+    h2 { margin-top: 40px; color: #333; }
+    .producto {
+      background: #fff;
+      border: 1px solid #ccc;
+      padding: 15px;
+      margin-bottom: 10px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    button {
+        background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover { background-color: #2706b8; }
+  </style>
+</head>
+<body>
+    <div class="container">
+
+        <button onclick="location.href='inicio_cliente.html'" style="margin-bottom: 20px;">⬅ Volver</button>
+      
+        <h1>Catálogo de Productos</h1>
+        <div id="contenedor-productos"></div>
+      
+
+  <h1>Catálogo de Productos</h1>
+  <div id="contenedor-productos"></div>
+
+  <script>
+    // Función para agrupar productos por categoría
+    function agruparPorCategoria(productos) {
+      const categorias = {};
+      productos.forEach(producto => {
+        const categoria = producto.categoria || "Sin categoría";
+        if (!categorias[categoria]) {
+          categorias[categoria] = [];
+        }
+        categorias[categoria].push(producto);
+      });
+      return categorias;
+    }
+
+    // Función para mostrar productos en la página
+    function mostrarProductos(productos) {
+      const contenedor = document.getElementById('contenedor-productos');
+      const productosPorCategoria = agruparPorCategoria(productos);
+
+      for (const categoria in productosPorCategoria) {
+        const encabezado = document.createElement('h2');
+        encabezado.textContent = categoria;
+        contenedor.appendChild(encabezado);
+
+        productosPorCategoria[categoria].forEach(producto => {
+          const div = document.createElement('div');
+          div.className = 'producto';
+          div.innerHTML = `
+            <strong>${producto.nombre}</strong><br>
+            ${producto.descripcion}<br>
+            Precio: $${parseFloat(producto.precio).toLocaleString()}<br><br>
+            <button onclick='solicitarProducto(${JSON.stringify(producto)})'>Solicitar</button>
+          `;
+          contenedor.appendChild(div);
+        });
+      }
+    }
+
+    // Función al hacer clic en "Solicitar"
+    function solicitarProducto(producto) {
+      const nombreCliente = prompt("Ingrese su nombre y apellido:");
+      const telefono = prompt("Ingrese su número de teléfono:");
+      const Dirección = prompt("Ingrese su dirección de residencia:");
+
+      if (!nombreCliente || !telefono) {
+        alert("I.");
+        return;
+      }
+
+      const datos = {
+        nombre: nombreCliente,
+        telefono: telefono,
+        item: producto.nombre,
+        precio: producto.precio,
+        tipo: "producto"
+      };
+
+      fetch('registrar_venta.php', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(datos)
+      })
+      .then(res => res.text())
+      .then(msg => {
+        alert("Solicitud enviada correctamente.");
+      })
+      .catch(err => {
+        console.error("Error al registrar:", err);
+        alert("Error al enviar solicitud.");
+      });
+    }
+
+    // Cargar productos al iniciar
+    fetch('obtener_productos.php')
+      .then(res => res.json())
+      .then(data => mostrarProductos(data))
+      .catch(err => console.error("Error al cargar productos:", err));
+  </script>
+
+</body>
+</html>

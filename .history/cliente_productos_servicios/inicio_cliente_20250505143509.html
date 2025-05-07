@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Car Fast - Panel</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #fbf8f8;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .info-icon {
+      font-size:20px;
+      color: #f2eaeb;
+      cursor: pointer;
+      margin-bottom: 20px;
+    }
+
+    .info-text {
+      display: none;
+      background-color: #ffffff;
+      border: 1px solid #ccc;
+      padding: 15px;
+      border-radius: 10px;
+      color: #333;
+      max-width: 700px;
+      margin-bottom: 20px;
+    }
+
+    .container {
+      background-color: #1e2a38;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+      max-width: 400px;
+      width: 90%;
+      text-align: center;
+    }
+
+    .logo {
+      width: 200px;
+      margin: 0 auto 20px;
+    }
+
+    .container h2 {
+      color: white;
+      margin-bottom: 20px;
+    }
+
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 14px;
+      margin: 10px 0;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #0056b3;
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 20px;
+      }
+
+      .btn {
+        font-size: 14px;
+        padding: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <img src="imagen/logo.jpg" alt="Car Fast Logo" class="logo" />
+  
+  
+
+  <div class="container">
+    
+    <h2>Bienvenido a Car Fast</h2>
+
+    <button class="btn">Ver productos</button>
+    <button class="btn">Ver servicios</button>
+    <button class="btn">Contactar por whasaabutton>
+    <button class="btn">Cerrar sesión</button>
+    <div class="info-icon" onclick="toggleInfo()">ℹ️ Todo sobre Car Fast</div>
+    <div class="info-text" id="infoText">
+      <h2>Car Fast</h2>
+      <p>
+        Car Fast es una empresa dedicada a brindar productos y servicios para el mantenimiento, mejora y personalización de vehículos.
+      </p>
+      <p><strong>Servicios y productos:</strong></p>
+      <ul>
+        <li>Alarmas</li>
+        <li>Bloqueos</li>
+        <li>Elevavidrios</li>
+        <li>Polarizados</li>
+        <li>Aire</li>
+        <li>Aire acondicionado</li>
+        <li>Airbag</li>
+      </ul>
+      <p><strong>Empresa:</strong> Car Fast</p>
+      <p><strong>Contacto:</strong> 323 235 8467</p>
+      <p><strong>Dirección:</strong> Carrera 29 #65-24, Barrio Siete de Agosto - Bogotá</p>
+      <p><strong>Horario:</strong> Lunes a Sábado de 8:00 am a 5:00 pm</p>
+    </div>
+    
+  </div>
+  
+  <script>
+    function toggleInfo() {
+      const info = document.getElementById('infoText');
+      info.style.display = info.style.display === 'block' ? 'none' : 'block';
+    }
+  </script>
+</body>
+</html>
+

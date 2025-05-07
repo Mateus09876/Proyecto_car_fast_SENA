@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Historial de Ventas - Car Fast</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+    th, td { padding: 8px; border: 1px solid #ccc; text-align: left; }
+    .filtros, .calendario-controles { margin-bottom: 15px; }
+    .filtros input, .filtros select, .calendario-controles select {
+      margin-right: 10px; padding: 5px;
+    }
+    .btn-regresar {
+      margin-bottom: 20px;
+      padding: 8px 16px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    .acciones button {
+      margin: 2px 0;
+      padding: 4px 8px;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+    .acciones button:first-child { background-color: #007bff; color: white; }
+    .acciones button:last-child { background-color: #e74c3c; color: white; }
+    tr.confirmado { background-color: #d4f7d4; }
+    .calendario {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 5px;
+    }
+    .calendario div {
+      padding: 8px;
+      text-align: center;
+      background-color: #f0f0f0;
+      cursor: pointer;
+    }
+    .calendario .hoy { background-color: #ffe08a; }
+    .calendario .titulo {
+      font-weight: bold;
+      background-color: #ddd;
+    }
+  </style>
+</head>
+<body>
+
+  <button class="btn-regresar" onclick="location.href='index.html'">← Regresar</button>
+  <h2>Historial de Ventas</h2>
+
+  <div class="filtros">
+    <label>Tipo:</label>
+    <select id="filtroTipo">
+      <option value="">Todos</option>
+      <option value="producto">Producto</option>
+    </select>
+  </div>
+
+  <div class="calendario-controles">
+    <label>Mes:</label>
+    <select id="mesSelect"></select>
+    <label>Año:</label>
+    <select id="añoSelect"></select>
+  </div>
+
+  <div id="calendario" class="calendario"></div>
+
+  <table id="tablaVentas">
+    <thead>
+      <tr>
+        <th>Cliente</th>
+        <th>Teléfono</th>
+        <th>Dirección</th>
+        <th>Item</th>
+        <th>Precio</th>
+        <th>Descripción</th>
+        <th>Fecha</th>
+        <th>Tipo</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody id="ventas-body"></tbody>
+  </table>
+
+  <script>
+    const ventasUrl = "obtener_ventas.php";
+    let ventasGlobal = [];
+    const hoy = new Date();
+
+    function crearCalendario(mes, año) {
+      const diasMes = new Date(año, mes + 1, 0).getDate();
+      const primerDia = new Date(año, mes, 1).getDay();
+      const calendario = document.getElementById("calendario");
+      calendario.innerHTML = "";
+
+      const diasSemana = ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"];
+      diasSemana.forEach(d => {
+        const div = document.createElement("div");
+        div.textContent = d;
+        div.className = "titulo";
+        calendario.appendChild(div);
+      });
+
+      for (let i = 0; i < primerDia; i++) {
+        const vacio = document.createElement("div");
+        calendario.appendChild(vacio);
+      }
+
+      for (let d = 1; d <= diasMes; d++) {
+        const fecha = new Date(año, mes, d);
+        const div = document.createElement("div");
+        div.textContent = d;
+        if (esMismaFecha(fecha, hoy)) div.classList.add("hoy");
+        div.onclick = () => filtrarPorFecha(fecha);
+        calendario.appendChild(div);
+      }
+    }
+
+    function esMismaFecha(fecha1, fecha2) {
+      return (
+        fecha1.getFullYear() === fecha2.getFullYear() &&
+        fecha1.getMonth() === fecha2.getMonth() &&
+        fecha1.getDate() === fecha2.getDate()
+      );
+    }
+
+    function llenarSelects() {
+      const mesSelect = document.getElementById("mesSelect");
+      const añoSelect = document.getElementById("añoSelect");
+      const meses = [
+        "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+        "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
+      ];
+
+      meses.forEach((m, i) => {
+        const opt = document.createElement("option");
+        opt.value = i;
+        opt.textContent = m;
+        mesSelect.appendChild(opt);
+      });
+
+      for (let y = 2023; y <= hoy.getFullYear() + 2; y++) {
+        const opt = document.createElement("option");
+        opt.value = y;
+        opt.textContent = y;
+        añoSelect.appendChild(opt);
+      }
+
+      mesSelect.value = hoy.getMonth();
+      añoSelect.value = hoy.getFullYear();
+
+      mesSelect.onchange = añoSelect.onchange = () => {
+        crearCalendario(Number(mesSelect.value), Number(añoSelect.value));
+      };
+    }
+
+    async function cargarVentas() {
+      try {
+        const response = await fetch(ventasUrl);
+        ventasGlobal = await response.json();
+        filtrarPorFecha(hoy);
+      } catch (e) {
+        alert("Error al cargar las ventas: " + e);
+      }
+    }
+
+    function filtrarPorFecha(fechaSeleccionada) {
+      const tipoFiltro = document.getElementById("filtroTipo").value;
+      const cuerpo = document.getElementById("ventas-body");
+      cuerpo.innerHTML = "";
+
+      ventasGlobal
+        .filter(v => {
+          const fechaVenta = new Date(v.fecha);
+          const mismoDia = esMismaFecha(fechaVenta, fechaSeleccionada);
+          const tipoOk = !tipoFiltro || v.tipo === tipoFiltro;
+          return mismoDia && tipoOk;
+        })
+        .sort((a, b) => {
+          if (a.estado !== b.estado) return a.estado === "pendiente" ? -1 : 1;
+          return new Date(b.fecha) - new Date(a.fecha);
+        })
+        .forEach(v => {
+          const row = document.createElement("tr");
+          row.setAttribute("data-id", v.id_venta);
+          if (v.estado === "confirmado") row.classList.add("confirmado");
+
+          row.innerHTML = `
+            <td>${v.nombre_cliente}</td>
+            <td>${v.telefono}</td>
+            <td>${v.direccion}</td>
+            <td>${v.item}</td>
+            <td>${v.precio}</td>
+            <td>${v.descripcion || ''}</td>
+            <td>${v.fecha}</td>
+            <td>${v.tipo}</td>
+            <td class="estado">${v.estado === 'confirmado' ? '✅ Confirmado' : v.estado}</td>
+            <td class="acciones">
+              ${v.estado === 'pendiente' ? `
+                <button onclick="confirmarVenta(${v.id_venta}, this)">Confirmar</button><br>
+                <button onclick="eliminarVenta(${v.id_venta})">Eliminar</button>
+              ` : ''}
+            </td>
+          `;
+          cuerpo.appendChild(row);
+        });
+    }
+
+    function confirmarVenta(id, boton) {
+      fetch('confirmar_venta.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: `id=${id}`
+      })
+      .then(res => res.text())
+      .then(msg => {
+        alert(msg);
+        cargarVentas();
+      });
+    }
+
+    function eliminarVenta(id) {
+      if (confirm("¿Estás seguro de eliminar esta venta?")) {
+        fetch('eliminar_venta.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: `id=${id}`
+        })
+        .then(res => res.text())
+        .then(msg => {
+          alert(msg);
+          cargarVentas();
+        });
+      }
+    }
+
+    llenarSelects();
+    crearCalendario(hoy.getMonth(), hoy.getFullYear());
+    cargarVentas();
+  </script>
+
+</body>
+</html>
+
+
+
+

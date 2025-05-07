@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Historial de Ventas - Car Fast</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #f4f4f4;
+    }
+    h1 {
+      color: #333;
+      margin-bottom: 20px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: white;
+      margin-bottom: 30px;
+    }
+    th, td {
+      padding: 10px;
+      border: 1px solid #ccc;
+      text-align: left;
+    }
+    th {
+      background-color: #007bff;
+      color: white;
+    }
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+    .btn-volver {
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .btn-volver:hover {
+      background-color: #2b18a7;
+    }
+  </style>
+</head>
+<body>
+  <h1>Historial de Ventas</h1>
+
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Cliente</th>
+        <th>Teléfono</th>
+        <th>Dirección</th>
+        <th>Item</th>
+        <th>Precio</th>
+        <th>Fecha</th>
+        <th>Tipo</th>
+      </tr>
+    </thead>
+    <tbody id="ventasBody">
+      <!-- Aquí se insertarán las filas dinámicamente -->
+    </tbody>
+  </table>
+
+  <a href="index.html" class="btn-volver">← Volver</a>
+
+  <script>
+    fetch('obtener_ventas.php')
+      .then(response => response.json())
+      .then(data => {
+        const tabla = document.getElementById('ventasBody');
+        data.forEach(venta => {
+          const fila = `<tr>
+            <td>${venta.id_venta}</td>
+            <td>${venta.nombre_cliente}</td>
+            <td>${venta.telefono}</td>
+            <td>${venta.direccion}</td>
+            <td>${venta.item}</td>
+            <td>$${venta.precio}</td>
+            <td>${venta.fecha}</td>
+            <td>${venta.tipo}</td>
+          </tr>`;
+          tabla.innerHTML += fila;
+        });
+      })
+      .catch(error => {
+        console.error('Error al cargar las ventas:', error);
+      });
+  </script>
+</body>
+</html>
+

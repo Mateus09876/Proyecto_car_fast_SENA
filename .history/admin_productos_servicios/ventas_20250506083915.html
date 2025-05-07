@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Historial de Ventas - Car Fast</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; background: #f4f4f4; }
+    h1 { color: #333; }
+    table { width: 100%; border-collapse: collapse; background: white; }
+    th, td { padding: 10px; border: 1px solid #ccc; text-align: left; }
+    th { background-color: #007bff; color: white; }
+  </style>
+</head>
+<body>
+  <h1>Historial de Ventas</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Cliente</th>
+        <th>Teléfono</th>
+        <th>Item</th>
+        <th>Precio</th>
+        <th>Fecha</th>
+        <th>Tipo</th>
+      </tr>
+    </thead>
+    <tbody id="ventasBody">
+      <!-- Aquí se cargarán los datos con JavaScript -->
+    </tbody>
+  </table>
+
+  <script>
+    fetch('obtener_ventas.php')
+      .then(response => response.json())
+      .then(data => {
+        const tabla = document.getElementById('ventasBody');
+        data.forEach(venta => {
+          const row = `<tr>
+            <td>${venta.id_venta}</td>
+            <td>${venta.nombre_cliente}</td>
+            <td>${venta.telefono}</td>
+            <td>${venta.item}</td>
+            <td>$${venta.precio}</td>
+            <td>${venta.fecha}</td>
+            <td>${venta.tipo}</td>
+          </tr>`;
+          tabla.innerHTML += row;
+        });
+      });
+  </script>
+</body>
+</html>

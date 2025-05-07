@@ -1,0 +1,152 @@
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Estilos generales */
+body {
+  font-family: 'Calibri', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center; /* Alinea el contenido al centro horizontal */
+  align-items: center; /* Alinea el contenido al centro vertical */
+  flex-direction: column;
+  background-color: #fbf8f8;
+  padding: 0 15px; /* Añadimos un poco de espacio lateral en pantallas pequeñas */
+  margin: 0;
+}
+
+/* Imagen superior */
+body img {
+  margin-bottom: 20px;
+  max-width: 80%; /* Se ajusta a un 80% del ancho disponible en pantallas pequeñas */
+  height: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Contenedor principal del formulario */
+.formulario {
+  width: 100%;
+  max-width: 400px; /* Controlamos el ancho máximo */
+  background: #24303c;
+  padding: 30px;
+  border-radius: 8px;
+  color: white;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  margin-top: 10px; /* Evita que el formulario se pegue a la imagen */
+  box-sizing: border-box;
+}
+
+/* Título */
+.formulario h4 {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* Campos de entrada */
+.formulario input[type="email"],
+.formulario input[type="password"],
+.formulario input[type="text"] {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0; /* Espacio entre campos */
+  border: 1px solid #1f53c5;
+  border-radius: 4px;
+  background-color: #1a1a1a;
+  color: white;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+/* Botón */
+.formulario button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  background-color: #1f53c5;
+  border: none;
+  color: white;
+  font-size: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.formulario button:hover {
+  background-color: #3b6ef5;
+}
+
+/* Enlaces inferiores */
+.formulario a {
+  display: block;
+  margin-top: 10px;
+  color: white;
+  font-size: 14px;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.formulario a:hover {
+  color: #3b6ef5;
+}
+
+/* Media Queries para mejorar la visualización en móviles */
+
+/* Pantallas más pequeñas */
+@media (max-width: 600px) {
+  body {
+    padding: 0 10px; /* Asegura que no haya espacios innecesarios en los laterales */
+  }
+
+  .formulario {
+    width: 90%; /* El formulario ocupará un 90% del ancho */
+    padding: 20px;
+    margin-top: 20px;
+  }
+
+  .formulario img {
+    width: 100%; /* La imagen se ajusta al 100% del ancho disponible */
+    margin-bottom: 20px;
+  }
+
+  .formulario h4 {
+    font-size: 18px;
+  }
+
+  .formulario input[type="email"],
+  .formulario input[type="password"],
+  .formulario input[type="text"],
+  .formulario button {
+    font-size: 14px; /* Ajustamos el tamaño de los campos y botones */
+  }
+}
+
+/* Pantallas más pequeñas (como en algunos teléfonos más pequeños) */
+@media (max-width: 400px) {
+  .formulario {
+    padding: 15px;
+    width: 95%; /* Asegura que el formulario ocupe casi todo el ancho */
+  }
+
+  .formulario h4 {
+    font-size: 16px; /* Hacemos el título más pequeño */
+  }
+
+  .formulario input[type="email"],
+  .formulario input[type="password"],
+  .formulario input[type="text"],
+  .formulario button {
+    font-size: 13px; /* Ajustamos los campos y botones */
+  }
+
+  .formulario a {
+    font-size: 12px; /* Reducimos el tamaño del enlace */
+  }
+}
+
