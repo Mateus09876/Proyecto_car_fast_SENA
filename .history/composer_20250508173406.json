@@ -1,0 +1,7 @@
+{
+  "name": "sena /car-fast",  // Reemplaza "mi-usuario" con tu nombre de usuario o lo que prefieras
+  "description": "Aplicación de ejemplo",
+  "require": {
+    "php": ">=7.4"
+  }
+}

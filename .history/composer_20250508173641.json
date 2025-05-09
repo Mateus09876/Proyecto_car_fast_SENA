@@ -1,6 +1,6 @@
 {
   "name": "proyecto_sena/car-fast",
-  "description": "Aplicación  para Heroku",
+  "description": "Aplicación de ejemplo para Heroku",
   "require": {
     "php": ">=7.4"
   }

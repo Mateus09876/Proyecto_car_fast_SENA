@@ -1,0 +1,7 @@
+{
+  "name": "proyecto_sena/car-fast",  // Tu nombre de "vendor" y "package"
+  "description": "Aplicación de ejemplo para Heroku",
+  "require": {
+    "php": ">=7.4"
+  }
+}
